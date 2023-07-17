@@ -54,7 +54,7 @@ export default function LoginPage() {
   useEffect(() => {
     if (isLoggedIn) {
       if (isAdmin) {
-        navigate("/admin");
+        navigate("/adminpanel");
       } else {
         navigate("/");
       }

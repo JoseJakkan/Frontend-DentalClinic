@@ -15,7 +15,6 @@ import MenuItem from "@mui/material/MenuItem";
 import SchoolTwoToneIcon from "@mui/icons-material/SchoolTwoTone";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Divider } from "@mui/material";
-import BuildTwoToneIcon from "@mui/icons-material/BuildTwoTone";
 import LoginTwoToneIcon from "@mui/icons-material/LoginTwoTone";
 import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTone";
 import { updateAuthStateLogout } from "../../features/login/updateAuthState";
@@ -45,7 +44,7 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const userName = useSelector((state) => state.auth.userInfo.name);
+  const userName = useSelector((state) => state.auth.userInfo.user_name);
   const userRole = useSelector((state) => state.auth.userInfo.role);
   const isAdmin = userRole == "admin";
 
@@ -64,11 +63,15 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const handleAdminLogout = () => {
+    updateAuthStateLogout();
+  };
+
   return (
     <AppBar
       position="static"
       className="ResponsiveAppBar"
-      color={isAdmin ? "error" : "primary"}
+      color={isAdmin ? "grey" : "primary"}
     >
       <Container>
         <Toolbar disableGutters>
@@ -76,7 +79,7 @@ function ResponsiveAppBar() {
             sx={{
               display: { xs: "none", md: "flex" },
               mr: 1,
-              fontWeight: 1000,
+              fontWeight: "bolder",
             }}
           />
           <Typography
@@ -154,7 +157,7 @@ function ResponsiveAppBar() {
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
-              color: "inherit",
+              color: "ivory",
               textDecoration: "none",
             }}
           ></Typography>
@@ -211,17 +214,16 @@ function ResponsiveAppBar() {
 
           {isAdmin && (
             <Box sx={{ flexGrow: 0, display: { xs: "flex" }, mr: 4 }}>
-              <NavLink style={{ textDecoration: "none" }} to="/admin">
+              <NavLink style={{ textDecoration: "none" }} to="/">
                 <Button
-                  variant="contained"
-                  startIcon={<BuildTwoToneIcon />}
-                  color="warning"
+                  onClick={handleAdminLogout}
+                  variant="outlined"
                   sx={{
                     my: 2,
-                    color: "white",
+                    color: "black",
                   }}
                 >
-                  Admin panel
+                  Exit
                 </Button>
               </NavLink>
             </Box>
@@ -259,7 +261,7 @@ function ResponsiveAppBar() {
               >
                 <MenuItem sx={{ cursor: "default", pointerEvents: "none" }}>
                   <Typography textAlign="center" fontWeight={500}>
-                    Welcome, {userName}
+                    Welcome
                   </Typography>
                 </MenuItem>
                 <Divider />

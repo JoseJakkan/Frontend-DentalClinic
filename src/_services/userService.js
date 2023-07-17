@@ -7,19 +7,19 @@ const userService = {};
 userService.getAll = async (token, page = 1) => {
   const options = {
     method: "GET",
-    url: `${global.BASE_API_URL}/user`,
+    url: `${global.BASE_API_URL}/users`,
     params: { page: page },
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   };
-  //await sleep(2000); // TODO
+
   const response = await axios.request(options);
   return response.data;
 };
 
-userService.getStudents = async (token, page = 1) => {
+/* userService.getPatients = async (token, page = 1) => {
   const options = {
     method: "GET",
     url: `${global.BASE_API_URL}/users`,
@@ -29,21 +29,21 @@ userService.getStudents = async (token, page = 1) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  //await sleep(2000); // TODO
+
   const response = await axios.request(options);
   return response.data;
-};
+}; */
 
 userService.getProfile = async (token) => {
   const options = {
     method: "GET",
-    url: `${global.BASE_API_URL}/user/profile`,
+    url: `${global.BASE_API_URL}/users/profile`,
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${token}`,
     },
   };
-  //await sleep(2000); // TODO
+
   const response = await axios.request(options);
   return response.data;
 };
@@ -59,7 +59,21 @@ userService.saveProfile = async (token, user) => {
     },
   };
 
-  // await sleep(2000); // TODO
+  const response = await axios.request(options);
+  return response.data;
+};
+
+userService.findAppointment = async (token, appointment) => {
+  const options = {
+    method: "GET",
+    url: `${global.BASE_API_URL}/users/findAppointment`,
+    data: appointment,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
   const response = await axios.request(options);
   return response.data;
 };
