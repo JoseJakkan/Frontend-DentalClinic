@@ -12,6 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import adminServices from "../../_services/adminServices";
+import authService from "../../_services/authService";
 
 // ----------------------------------------------------------------------
 
@@ -55,19 +56,27 @@ export default function AdminPage() {
     setIsLoading(true);
     try {
       const data = await adminServices.getAll(token, usersPage);
+     
       setUsers(data.results);
-      setCount(data.total_pages);
-      console.log(data.total_pages);
-      console.log(data.results);
+      setCount(data.info.pages);
+
+      
     } catch (error) {
-      console.log(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const createData = (name, lastname, email, birthdate, address, phone) => {
-    return { name, lastname, email, birthdate, address, phone };
+  const createData = (
+    name,
+    lastname,
+    email,
+    birthdate,
+    address,
+    phone,
+    role
+  ) => {
+    return { name, lastname, email, birthdate, address, phone, role };
   };
 
   const rows = users.map((user) =>
@@ -77,7 +86,8 @@ export default function AdminPage() {
       user.email,
       user.birthdate,
       user.address,
-      user.phone
+      user.phone,
+      user.role_id
     )
   );
 
@@ -107,6 +117,7 @@ export default function AdminPage() {
                   <StyledTableCell align="right">Birthdate</StyledTableCell>
                   <StyledTableCell align="right">Address</StyledTableCell>
                   <StyledTableCell align="right">Phone</StyledTableCell>
+                  <StyledTableCell align="right">Role</StyledTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -126,6 +137,7 @@ export default function AdminPage() {
                       {row.address}
                     </StyledTableCell>
                     <StyledTableCell align="right">{row.phone}</StyledTableCell>
+                    <StyledTableCell align="right">{row.role}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>

@@ -32,8 +32,6 @@ function Copyright(props) {
   );
 }
 
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
@@ -50,10 +48,26 @@ export default function RegisterPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    const newUser = {
+      user_name: data.get("name"),
+      user_lastname: data.get("lastname"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+    console.log(newUser);
+    newRegister(newUser);
+  };
+
+  const newRegister = async (newUser) => {
+    try {
+      const response = await authService.register(newUser);
+      // setError(null);
+      console.log(response);
+    } catch (error) {
+      // setError(error.response.data);
+      console.log(error.response.data);
+    }
   };
 
   return (
@@ -84,10 +98,10 @@ export default function RegisterPage() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
+                  id="user_name"
                   label="First Name"
                   autoFocus
                 />
@@ -96,9 +110,9 @@ export default function RegisterPage() {
                 <TextField
                   required
                   fullWidth
-                  id="lastName"
+                  id="user_lastname"
                   label="Last Name"
-                  name="lastName"
+                  name="lastname"
                   autoComplete="family-name"
                 />
               </Grid>
@@ -148,7 +162,7 @@ export default function RegisterPage() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import Link from "@mui/material/Link";
-
 // @MUI
 import { Container, Typography } from "@mui/material";
 import userService from "../../_services/userService";
+
+import { styled } from "@mui/material/styles";
 
 import List from "@mui/material/List";
 
@@ -35,7 +35,7 @@ import Paper from "@mui/material/Paper";
 
 //table
 
-export default function ProfilePage() {
+export default function DoctorPage() {
   // hooks
   const [user, setUser] = useState({});
   const [appointment, setAppointment] = useState([]);
@@ -49,10 +49,6 @@ export default function ProfilePage() {
   useEffect(() => {
     findAppointment();
   }, []);
-
-  const handleDelete = (event) => {
-    cancelAppoint(id);
-  };
 
   function createData(name, doctor, date, time) {
     return { name, doctor, date, time };
@@ -89,6 +85,17 @@ export default function ProfilePage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const Demo = styled("div")(({ theme }) => ({
+    backgroundColor: theme.palette.background.paper,
+  }));
+
+  function NestedList() {
+    const [open, setOpen] = React.useState(true);
+  }
+  const handleClick = () => {
+    setOpen(!open);
   };
 
   return (
@@ -138,19 +145,16 @@ export default function ProfilePage() {
       </div>
       {/* table */}
       <h3>
-        Appointments
-        <Link href="/createAppointment" variant="body2">
-          <AddCircleIcon fontSize="small" />
-        </Link>
+        Appointments <AddCircleIcon fontSize="small" />
       </h3>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 600 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Doctor</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Time</TableCell>
+              <TableCell align="right">Name</TableCell>
+              <TableCell align="right">Doctor</TableCell>
+              <TableCell align="right">Date</TableCell>
+              <TableCell align="right">Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -159,20 +163,17 @@ export default function ProfilePage() {
                 key={row.name}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell>{row.name}</TableCell>
+                <TableCell align="right">{row.patient}</TableCell>
 
-                <TableCell>{row.doctor}</TableCell>
+                <TableCell align="right">{row.doctor}</TableCell>
 
-                <TableCell>{row.date}</TableCell>
+                <TableCell align="right">{row.date}</TableCell>
 
-                <TableCell align="rigth">
-                  {row.time}
-                  <button>
-                    <RestoreIcon fontSize="small" />
-                  </button>
-                  <button onClick={handleDelete}>
-                    <DeleteIcon fontSize="small" />
-                  </button>
+                <TableCell align="rigth">{row.time}</TableCell>
+                <TableCell>
+                  {" "}
+                  <RestoreIcon fontSize="small" />
+                  <DeleteIcon fontSize="small" />
                 </TableCell>
               </TableRow>
             ))}

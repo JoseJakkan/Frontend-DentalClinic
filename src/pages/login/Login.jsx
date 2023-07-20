@@ -70,27 +70,23 @@ export default function LoginPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log("1", data);
 
     const credentials = {
       email: data.get("email"),
       password: data.get("password"),
     };
-    console.log("2", credentials);
+
     // validar en el frontend
 
     login(credentials);
   };
 
   const login = async (credentials) => {
-    console.log("3", credentials);
     try {
       const response = await authService.login(credentials);
-      console.log("4", credentials);
+
       setError(null);
       updateAuthStateLogin(response.token);
-      console.log("5", credentials);
-      console.log("6", response);
     } catch (error) {
       setError(error.response.data.message);
       console.log(error.response.data.message);
