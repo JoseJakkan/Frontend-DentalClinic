@@ -48,6 +48,21 @@ userService.saveProfile = async (token, user) => {
   return response.data;
 };
 
+userService.createAppoint = async (token) => {
+  const options = {
+    method: "POST",
+    url: `${global.BASE_API_URL}/users/createAppoint`,
+    data: appointmentData,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.request(options);
+  return response.data;
+};
+
 userService.findAppointment = async (token, appointment) => {
   const options = {
     method: "GET",
@@ -63,11 +78,11 @@ userService.findAppointment = async (token, appointment) => {
   return response.data;
 };
 
-userService.cancelAppoint = async (token, id) => {
+userService.cancelAppoint = async (token, appointmentId) => {
   const options = {
-    method: "DEL",
+    method: "DELETE",
     url: `${global.BASE_API_URL}/users/cancelAppoint`,
-    data: id,
+    data: appointmentId,
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${token}`,

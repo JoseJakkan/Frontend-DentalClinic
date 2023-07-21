@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import cancelAppoint from "../../_services/userService";
 
 import Link from "@mui/material/Link";
 
@@ -41,6 +42,7 @@ export default function ProfilePage() {
   const [appointment, setAppointment] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const token = useSelector((state) => state.auth.token);
+  const [dates, setDates] = useState([]);
 
   useEffect(() => {
     getProfile();
@@ -49,23 +51,6 @@ export default function ProfilePage() {
   useEffect(() => {
     findAppointment();
   }, []);
-
-  const handleDelete = (event) => {
-    cancelAppoint(id);
-  };
-
-  function createData(name, doctor, date, time) {
-    return { name, doctor, date, time };
-  }
-
-  const rows = appointment.map((appointment) =>
-    createData(
-      appointment.patient_id,
-      appointment.doctor_id,
-      appointment.date,
-      appointment.time
-    )
-  );
 
   const getProfile = async () => {
     setIsLoading(true);
@@ -82,7 +67,7 @@ export default function ProfilePage() {
     setIsLoading(true);
     try {
       const data = await userService.findAppointment(token);
-      setAppointment(data);
+      setDates(data);
       console.log(data);
     } catch (error) {
       console.log(error);
@@ -91,6 +76,103 @@ export default function ProfilePage() {
     }
   };
 
+  const ViewAppo = ({ appointments }) => {
+    function createData(
+      patientName,
+      patientLastname,
+      doctorName,
+      doctorLastname,
+      date,
+      time
+    ) {
+      return {
+        patientName,
+        patientLastname,
+        doctorName,
+        doctorLastname,
+        date,
+        time,
+      };
+    }
+
+    const dates = appointments.map((appointment) =>
+      createData(
+        appointment.patient.name,
+        appointment.patient.lastname,
+        appointment.doctor.name,
+        appointment.doctor.lastname,
+        appointment.date,
+        appointment.time
+      )
+    );
+    console.log(dates);
+
+    const handleCancelAppointment = async (appointmentId) => {
+      try {
+        await cancelAppoint(token, appointmentId);
+
+        findAppointment();
+      } catch (error) {
+        console.log("Error cancelling appointment:", error);
+      }
+    };
+    return (
+      <>
+        <h3>
+          Appointments
+          <Link href="/createAppointment" variant="body2">
+            <AddCircleIcon fontSize="small" />
+          </Link>
+        </h3>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 600 }} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Doctor</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Time</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {dates.map((row) => (
+                <TableRow
+                  key={row.date}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>
+                    {row.patientName}
+                    {row.patientLastname}
+                  </TableCell>
+
+                  <TableCell>
+                    {row.doctorName}
+                    {row.doctorLastname}
+                  </TableCell>
+
+                  <TableCell>{row.date}</TableCell>
+
+                  <TableCell>{row.time}</TableCell>
+                  <TableCell>
+                    <button>
+                      <RestoreIcon fontSize="small" />
+                    </button>
+                    <button
+                      onClick={() => handleCancelAppointment(row.appointmentId)}
+                    >
+                      <DeleteIcon fontSize="small" />
+                    </button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </>
+    );
+  };
+
+  // ---------------------
   return (
     <Container sx={{ mt: 5 }}>
       <Typography
@@ -137,48 +219,7 @@ export default function ProfilePage() {
         </List>
       </div>
       {/* table */}
-      <h3>
-        Appointments
-        <Link href="/createAppointment" variant="body2">
-          <AddCircleIcon fontSize="small" />
-        </Link>
-      </h3>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 600 }} size="small" aria-label="a dense table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Doctor</TableCell>
-              <TableCell>Date</TableCell>
-              <TableCell>Time</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row) => (
-              <TableRow
-                key={row.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell>{row.name}</TableCell>
-
-                <TableCell>{row.doctor}</TableCell>
-
-                <TableCell>{row.date}</TableCell>
-
-                <TableCell align="rigth">
-                  {row.time}
-                  <button>
-                    <RestoreIcon fontSize="small" />
-                  </button>
-                  <button onClick={handleDelete}>
-                    <DeleteIcon fontSize="small" />
-                  </button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <ViewAppo appointments={dates} />
     </Container>
   );
 }
