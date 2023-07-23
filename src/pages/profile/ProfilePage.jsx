@@ -7,7 +7,8 @@ import Link from "@mui/material/Link";
 // @MUI
 import { Container, Typography } from "@mui/material";
 import userService from "../../_services/userService";
-
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 import List from "@mui/material/List";
 
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -185,6 +186,12 @@ export default function ProfilePage() {
         Profile
       </Typography>
       <div className="divCenter">
+        <Stack direction="row" spacing={2}>
+          <Avatar
+            alt={user.user_name}
+            src={`../../../iamges/portrait${user.id}.jpg`}
+          />
+        </Stack>
         <List
           sx={{
             width: "100%",

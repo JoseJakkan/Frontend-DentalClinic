@@ -32,7 +32,6 @@ function Copyright(props) {
   );
 }
 
-
 export default function RegisterPage() {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -68,7 +67,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={createTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

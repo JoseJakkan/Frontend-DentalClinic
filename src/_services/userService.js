@@ -48,7 +48,7 @@ userService.saveProfile = async (token, user) => {
   return response.data;
 };
 
-userService.createAppoint = async (token) => {
+userService.createAppoint = async (token, appointmentData) => {
   const options = {
     method: "POST",
     url: `${global.BASE_API_URL}/users/createAppoint`,

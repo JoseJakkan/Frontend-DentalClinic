@@ -20,12 +20,28 @@ import AppRegistrationTwoToneIcon from "@mui/icons-material/AppRegistrationTwoTo
 import { updateAuthStateLogout } from "../../features/login/updateAuthState";
 import { GiKoala } from "react-icons/gi";
 
+import { Navigate } from "react-router-dom";
+
 // ----------------------------------------------------------------------
 
+/* const isAdmin = userRole == "admin";
+const isDoctor = userRole == "doctor";
+const isPatient = userRole == "patient";
+ */
 const handleLogout = () => {
   console.log("logout");
   updateAuthStateLogout();
 };
+
+/* const handleProfile = () => {
+  if (isAdmin) {
+    Navigate("/adminpanel");
+  } else if (isDoctor) {
+    Navigate("/doctor");
+  } else {
+    Navigate("/profile");
+  }
+}; */
 
 const pages = [
   { title: "Home", path: "/" },
@@ -48,6 +64,8 @@ function ResponsiveAppBar() {
   const userName = useSelector((state) => state.auth.userInfo.user_name);
   const userRole = useSelector((state) => state.auth.userInfo.role);
   const isAdmin = userRole == "admin";
+  const isDoctor = userRole == "doctor";
+  const isPatient = userRole == "patient";
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -98,7 +116,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            Philip Sherman's Dentist Office
+            PTSD
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

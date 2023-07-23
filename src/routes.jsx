@@ -22,7 +22,7 @@ export default function AppRouter() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/adminpanel" element={<AdminPage />} />
         <Route path="/acount" element={<AcountPage />} />
-        <Route path="/createAppointment" element={< NewAppointment/>} />
+        <Route path="/createAppointment" element={<NewAppointment />} />
       </Routes>
     </div>
   );

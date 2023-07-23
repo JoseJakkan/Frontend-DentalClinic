@@ -3,7 +3,7 @@ import userService from "../../_services/userService";
 import dayjs from "dayjs";
 import { MenuItem } from "@mui/material";
 import Button from "@mui/material/Button";
-
+import authService from "../../_services/authService";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -20,8 +20,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateField } from "@mui/x-date-pickers/DateField";
-
-const [value, setValue] = useState(dayjs("2022-04-17"));
+import { Token } from "@mui/icons-material";
 
 //doctros object array for selector
 const doctors = [
@@ -44,7 +43,8 @@ const doctors = [
 ];
 
 // Funtion for date
-const DateFieldValue = () => {
+const useDateFieldValue = () => {
+  const [value, setValue] = React.useState(dayjs("2023-10-15"));
   return { value, setValue };
 };
 
@@ -94,29 +94,32 @@ const hours = [
 
 //Function for create appointment
 export default function AppointmentCreate() {
+  const { value, setValue } = useDateFieldValue();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
+    const selectedDate = data.get("Date");
+    const formattedDate = dayjs(selectedDate, "DD/MM/YYYY").format(
+      "YYYY-MM-DD"
+    );
+
     const newAppointment = {
       doctor_id: data.get("Doctor"),
-      date: data.get("Date"),
+      date: formattedDate,
       time: data.get("Time"),
     };
+
     console.log(newAppointment);
     newAppo(newAppointment);
   };
-
-  function DateFieldValue() {
-    const [value, setValue] = React.useState(dayjs("2022-04-17"));
-    return { value, setValue };
-  }
 
   const newAppo = async (newAppointment) => {
     try {
       const response = await userService.createAppoint(newAppointment);
       // setError(null);
       console.log(response);
+      console.log(newAppointment);
     } catch (error) {
       // setError(error.response.data);
       console.log(error.response.data);
@@ -124,7 +127,7 @@ export default function AppointmentCreate() {
   };
 
   return (
-    <ThemeProvider theme={""}>
+    <ThemeProvider theme={createTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -162,19 +165,21 @@ export default function AppointmentCreate() {
             </Grid>
             <Grid item xs={12} sm={6}>
               {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DatePicker"]}>
-                  <DatePicker name="Date" label="Select Day" />
+                <DemoContainer components={["DateField", "DateField"]}>
+                  <DateField
+                    label="Select Day"
+                    name="Date"
+                    value={value}
+                    onChange={(newValue) => setValue(newValue)}
+                  />
                 </DemoContainer>
               </LocalizationProvider> */}
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateField", "DateField"]}>
-                  <DateField
-                    label="Uncontrolled field"
-                    defaultValue={dayjs("2022-04-17")}
-                  />
-                  <DateField
+                <DemoContainer components={["DateField", "DatePicker"]}>
+                  <DatePicker
                     label="Select Day"
-                    name="date"
+                    // format="YYYY/MM/DD"
+                    name="Date"
                     value={value}
                     onChange={(newValue) => setValue(newValue)}
                   />
