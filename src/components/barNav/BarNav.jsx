@@ -53,7 +53,6 @@ function ResponsiveAppBar() {
 
   const settings = [
     { title: "Profile", path: profilePath[userRole], handle: null },
-    { title: "Acount", path: "/account", handle: null },
     { title: "Logout", path: "/", handle: handleLogout },
   ];
 

@@ -2,9 +2,9 @@ import axios from "axios";
 
 import { global } from "../_config/global";
 
-const docService = {};
+const doctorServices = {};
 
-docService.getDocApoo = async (token, appointment) => {
+doctorServices.doctorAppoinment = async (token, appointment) => {
   const options = {
     method: "GET",
     url: `${global.BASE_API_URL}/doctor/doctorAppoinment`,
@@ -19,4 +19,4 @@ docService.getDocApoo = async (token, appointment) => {
   return response.data;
 };
 
-export default docService;
+export default doctorServices;

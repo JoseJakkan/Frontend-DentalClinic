@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 // @MUI
 import { Container, Typography } from "@mui/material";
 import userService from "../../_services/userService";
-import docService from "../../_services/doctorServices";
+import doctorServices from "../../_services/doctorServices";
 
 import List from "@mui/material/List";
 
@@ -44,7 +44,7 @@ export default function DoctorProfile() {
   }, []);
 
   useEffect(() => {
-    getDocApoo();
+    doctorAppoinment();
   }, []);
 
   const getProfile = async () => {
@@ -58,10 +58,10 @@ export default function DoctorProfile() {
     }
   };
 
-  const getDocApoo = async () => {
+  const doctorAppoinment = async () => {
     setIsLoading(true);
     try {
-      const data = await docService.getDocApoo(token);
+      const data = await doctorServices.doctorAppoinment(token);
       setDates(data);
       console.log("2", data);
     } catch (error) {
