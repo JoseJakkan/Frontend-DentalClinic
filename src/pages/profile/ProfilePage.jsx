@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import cancelAppoint from "../../_services/userService";
 
 import Link from "@mui/material/Link";
 
 // @MUI
 import { Container, Typography } from "@mui/material";
 import userService from "../../_services/userService";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
+
 import List from "@mui/material/List";
 
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -108,9 +106,6 @@ export default function ProfilePage() {
     );
     console.log(dates);
 
-   
-     
-  
     return (
       <>
         <h3>

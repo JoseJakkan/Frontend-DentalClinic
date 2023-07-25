@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import Link from "@mui/material/Link";
-
 // @MUI
 import { Container, Typography } from "@mui/material";
 import userService from "../../_services/userService";
@@ -19,9 +17,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 
 import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import CakeIcon from "@mui/icons-material/Cake";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import RestoreIcon from "@mui/icons-material/Restore";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 import "../../App.scss";
 
@@ -97,10 +92,10 @@ export default function DoctorProfile() {
 
     const dates = appointments.map((appointment) =>
       createData(
-        appointment.patientName,
-        appointment.patientLastname,
-        appointment.doctorName,
-        appointment.doctorLastname,
+        appointment.patient.name,
+        appointment.patient.lastname,
+        appointment.doctor.name,
+        appointment.doctor.lastname,
         appointment.date,
         appointment.time
       )
