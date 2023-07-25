@@ -250,6 +250,11 @@ import {
   createTheme,
 } from "@mui/material";
 import AccountCircleRoundedIcon from "@mui/icons-material/AccountCircleRounded";
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+
+import { DateField } from "@mui/x-date-pickers/DateField";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import SaveRoundedIcon from "@mui/icons-material/SaveRounded";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
@@ -288,12 +293,60 @@ const doctors = [
   },
 ];
 
+//Function for create appointment
+function NewDate() {
+  const { value, setValue } = useDateFieldValue();
+}
 let initialFormValues = {
-  customer_id: "",
+  patient_id: "",
   doctor_id: "",
   date: "",
   time: "",
 };
+
+//Hour object array for selector
+const hours = [
+  {
+    value: "09:00",
+    label: "09:00",
+  },
+  {
+    value: "10:00",
+    label: "10:00",
+  },
+  {
+    value: "11:00",
+    label: "11:00",
+  },
+  {
+    value: "12:00",
+    label: "12:00",
+  },
+  {
+    value: "13:00",
+    label: "13:00",
+  },
+  {
+    value: "16:00",
+    label: "16:00",
+  },
+  {
+    value: "17:00",
+    label: "17:00",
+  },
+  {
+    value: "18:00",
+    label: "18:00",
+  },
+  {
+    value: "19:00",
+    label: "19:00",
+  },
+  {
+    value: "20:00",
+    label: "20:00",
+  },
+];
 
 export default function NewAppointment() {
   // hooks
@@ -314,21 +367,21 @@ export default function NewAppointment() {
 
   if (isCustomer) {
     initialFormValues = {
-      customer_id: userInfo.customerId,
+      patient_id: userInfo.customerId,
       doctor_id: "",
       date: "",
       time: "",
     };
   } else if (isDoctor) {
     initialFormValues = {
-      customer_id: "",
+      patient_id: "",
       doctor_id: userInfo.doctorId,
       date: "",
       time: "",
     };
   } else {
     initialFormValues = {
-      customer_id: "",
+      patient_id: "",
       doctor_id: "",
       date: "",
       time: "",
@@ -356,7 +409,7 @@ export default function NewAppointment() {
     const data = new FormData(event.currentTarget);
 
     console.log({
-      customer_id: data.get("customer_id"),
+      patient_id: data.get("patient_id"),
       doctor_id: data.get("doctor_id"),
       date: data.get("date"),
       time: data.get("time"),
@@ -393,122 +446,86 @@ export default function NewAppointment() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
-      {error && (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {error}
-        </Alert>
-      )}
-      {success && (
-        <Alert severity="success">
-          <AlertTitle>Succes</AlertTitle>
-          Appointment created successfully!
-        </Alert>
-      )}
-      <Container component="main" maxWidth="md">
+    <ThemeProvider theme={""}>
+      <Container component="main" maxWidth="xs">
         <CssBaseline />
-
         <Box
           sx={{
             marginTop: 8,
-            alignItems: "flex-start",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
-          <Box sx={{ mt: 1, mb: 4 }}>
-            <Typography component="h1" variant="h5">
-              New appointment
-            </Typography>
-          </Box>
-
+          <Typography component="h1" variant="h5">
+            Create a New Appointent
+          </Typography>
           <Box
             component="form"
             noValidate
             onSubmit={handleSubmit}
-            sx={{
-              mt: 5,
-              p: 3,
-              borderRadius: 4,
-              border: "1px solid #e8e8e8",
-              boxShadow:
-                "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
-            }}
+            sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid container spacing={2}>
-                <TextField
-                  id="outlined-select-doctors"
-                  select
-                  name="Doctor"
-                  label="Select"
-                  defaultValue="id.1"
-                  helperText="Please select your doctors"
-                >
-                  {doctors.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <Stack direction="column" spacing={2}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="date"
-                    label="Date"
-                    name="date"
-                    value={formValues.date}
-                    onChange={handleChange}
-                    InputProps={{
-                      inputProps: {
-                        type: "date",
-                      },
-                    }}
-                  />
-
-                  <TextField
-                    required
-                    fullWidth
-                    id="time"
-                    label=""
-                    name=""
+              <TextField
+                id="outlined-select-doctors"
+                select
+                name="Doctor"
+                label="Select"
+                defaultValue="id.1"
+                helperText="Please select your doctors"
+                value={formValues.time}
+                onChange={handleChange}
+              >
+                {doctors.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DemoContainer components={["DateField", "DateField"]}>
+                  <DateField
+                    label="Select Day"
+                    name="Date"
                     value={formValues.time}
                     onChange={handleChange}
-                    InputProps={{
-                      inputProps: {
-                        type: "time",
-                      },
-                    }}
                   />
-                </Stack>
-              </Grid>
+                </DemoContainer>
+              </LocalizationProvider>
             </Grid>
-            <Grid>
-              <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <NavLink
-                  style={{ textDecoration: "none" }}
-                  to="/users/my-appointments"
-                >
-                  <Button type="button" variant="contained" sx={{ mt: 3 }}>
-                    Cancel
-                  </Button>
-                </NavLink>
-                <Button
-                  type="button"
-                  variant="contained"
-                  startIcon={<SaveRoundedIcon />}
-                  sx={{ mt: 3 }}
-                  onClick={() => {
-                    createAppoint(formValues);
-                  }}
-                >
-                  Create appointment
-                </Button>
-              </Box>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-select-hour"
+                select
+                name="Time"
+                label="Select"
+                defaultValue="09:00"
+                helperText="Please select your Hour"
+                value={formValues.time}
+                onChange={handleChange}
+              >
+                {hours.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
             </Grid>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={() => {
+                createAppoint(formValues);
+              }}
+            >
+              Reserve
+            </Button>
           </Box>
         </Box>
       </Container>
