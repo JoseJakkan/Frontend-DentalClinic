@@ -20,24 +20,23 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { DateField } from "@mui/x-date-pickers/DateField";
-import { Token } from "@mui/icons-material";
 
 //doctros object array for selector
 const doctors = [
   {
-    value: "id.2",
+    value: "id.1",
     label: "Philip Sherman",
   },
   {
-    value: "id.3",
+    value: "id.2",
     label: "Laura Palmer",
   },
   {
-    value: "id.4",
+    value: "id.3",
     label: "Stephen Strange",
   },
   {
-    value: "id.5",
+    value: "id.4",
     label: "Robert Smith",
   },
 ];
@@ -51,44 +50,44 @@ const useDateFieldValue = () => {
 //Hour object array for selector
 const hours = [
   {
-    value: "09.00",
-    label: "09.00",
+    value: "09:00",
+    label: "09:00",
   },
   {
-    value: "10.00",
-    label: "10.00",
+    value: "10:00",
+    label: "10:00",
   },
   {
-    value: "11.00",
-    label: "11.00",
+    value: "11:00",
+    label: "11:00",
   },
   {
-    value: "12.00",
-    label: "12.00",
+    value: "12:00",
+    label: "12:00",
   },
   {
-    value: "13.00",
-    label: "13.00",
+    value: "13:00",
+    label: "13:00",
   },
   {
-    value: "16.00",
-    label: "16.00",
+    value: "16:00",
+    label: "16:00",
   },
   {
-    value: "17.00",
-    label: "17.00",
+    value: "17:00",
+    label: "17:00",
   },
   {
-    value: "18.00",
-    label: "18.00",
+    value: "18:00",
+    label: "18:00",
   },
   {
-    value: "19.00",
-    label: "19.00",
+    value: "19:00",
+    label: "19:00",
   },
   {
-    value: "20.00",
-    label: "20.00",
+    value: "20:00",
+    label: "20:00",
   },
 ];
 
@@ -99,14 +98,32 @@ export default function AppointmentCreate() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
+    // Funtion for date
+    const useDateFieldValue = () => {
+      const [value, setValue] = React.useState(dayjs("2023-10-15"));
+      return { value, setValue };
+    };
+    // hooks
+    const [user, setUser] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [formValues, setFormValues] = useState(initialFormValues);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(false);
+
+    // glogal state hooks
+    const token = useSelector((state) => state.auth.token);
+    const userRole = useSelector((state) => state.auth.userInfo.role);
+    const isAdmin = userRole == "admin";
+    const isCustomer = userRole == "patient";
+    const isDoctor = userRole == "doctor";
+
     const selectedDate = data.get("Date");
-    const formattedDate = dayjs(selectedDate, "DD/MM/YYYY").format(
-      "YYYY-MM-DD"
-    );
+    console.log(selectedDate);
 
     const newAppointment = {
+      patient_id: token.userId,
       doctor_id: data.get("Doctor"),
-      date: formattedDate,
+      date: selectedDate,
       time: data.get("Time"),
     };
 
@@ -127,7 +144,7 @@ export default function AppointmentCreate() {
   };
 
   return (
-    <ThemeProvider theme={createTheme}>
+    <ThemeProvider theme={""}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -153,7 +170,7 @@ export default function AppointmentCreate() {
                 select
                 name="Doctor"
                 label="Select"
-                defaultValue="id.2"
+                defaultValue="id.1"
                 helperText="Please select your doctors"
               >
                 {doctors.map((option) => (
@@ -164,21 +181,10 @@ export default function AppointmentCreate() {
               </TextField>
             </Grid>
             <Grid item xs={12} sm={6}>
-              {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DemoContainer components={["DateField", "DateField"]}>
                   <DateField
                     label="Select Day"
-                    name="Date"
-                    value={value}
-                    onChange={(newValue) => setValue(newValue)}
-                  />
-                </DemoContainer>
-              </LocalizationProvider> */}
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={["DateField", "DatePicker"]}>
-                  <DatePicker
-                    label="Select Day"
-                    // format="YYYY/MM/DD"
                     name="Date"
                     value={value}
                     onChange={(newValue) => setValue(newValue)}
@@ -192,7 +198,7 @@ export default function AppointmentCreate() {
                 select
                 name="Time"
                 label="Select"
-                defaultValue="09.00"
+                defaultValue="09:00"
                 helperText="Please select your Hour"
               >
                 {hours.map((option) => (

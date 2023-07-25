@@ -1,5 +1,5 @@
 import * as React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -24,37 +24,6 @@ import { Navigate } from "react-router-dom";
 
 // ----------------------------------------------------------------------
 
-/* const isAdmin = userRole == "admin";
-const isDoctor = userRole == "doctor";
-const isPatient = userRole == "patient";
- */
-const handleLogout = () => {
-  console.log("logout");
-  updateAuthStateLogout();
-};
-
-/* const handleProfile = () => {
-  if (isAdmin) {
-    Navigate("/adminpanel");
-  } else if (isDoctor) {
-    Navigate("/doctor");
-  } else {
-    Navigate("/profile");
-  }
-}; */
-
-const pages = [
-  { title: "Home", path: "/" },
-  { title: "Services", path: "/" },
-  { title: "About", path: "/" },
-];
-
-const settings = [
-  { title: "Profile", path: "/profile", handle: null },
-  { title: "Acount", path: "/acount", handle: null },
-  { title: "Logout", path: "/", handle: handleLogout },
-];
-
 // ----------------------------------------------------------------------
 
 function ResponsiveAppBar() {
@@ -64,8 +33,31 @@ function ResponsiveAppBar() {
   const userName = useSelector((state) => state.auth.userInfo.user_name);
   const userRole = useSelector((state) => state.auth.userInfo.role);
   const isAdmin = userRole == "admin";
-  const isDoctor = userRole == "doctor";
-  const isPatient = userRole == "patient";
+
+  const handleLogout = () => {
+    console.log("logout");
+    updateAuthStateLogout();
+  };
+
+  const pages = [
+    { title: "Home", path: "/" },
+    { title: "Services", path: "/" },
+    { title: "About", path: "/" },
+  ];
+
+  const profilePath = {
+    admin: "/adminpanel",
+    patient: "/profile",
+    doctor: "/doctor",
+  };
+
+  const settings = [
+    { title: "Profile", path: profilePath[userRole], handle: null },
+    { title: "Acount", path: "/account", handle: null },
+    { title: "Logout", path: "/", handle: handleLogout },
+  ];
+
+  console.log(userRole);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -87,11 +79,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar
-      position="static"
-      className="ResponsiveAppBar"
-      color={isAdmin ? "grey" : "primary"}
-    >
+    <AppBar position="static" color={isAdmin ? "grey" : "primary"}>
       <Container>
         <Toolbar disableGutters>
           <GiKoala
@@ -112,7 +100,7 @@ function ResponsiveAppBar() {
               fontFamily: "monospace",
               fontWeight: 500,
               letterSpacing: ".3rem",
-              className: "secondaryColor",
+
               textDecoration: "none",
             }}
           >
@@ -130,7 +118,6 @@ function ResponsiveAppBar() {
               <MenuIcon />
             </IconButton>
             <Menu
-              className="primaryColor"
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{

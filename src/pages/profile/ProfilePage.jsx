@@ -108,15 +108,9 @@ export default function ProfilePage() {
     );
     console.log(dates);
 
-    const handleCancelAppointment = async (appointmentId) => {
-      try {
-        await cancelAppoint(token, appointmentId);
-
-        findAppointment();
-      } catch (error) {
-        console.log("Error cancelling appointment:", error);
-      }
-    };
+   
+     
+  
     return (
       <>
         <h3>
@@ -186,12 +180,6 @@ export default function ProfilePage() {
         Profile
       </Typography>
       <div className="divCenter">
-        <Stack direction="row" spacing={2}>
-          <Avatar
-            alt={user.user_name}
-            src={`../../../iamges/portrait${user.id}.jpg`}
-          />
-        </Stack>
         <List
           sx={{
             width: "100%",
