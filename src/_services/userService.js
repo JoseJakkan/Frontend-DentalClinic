@@ -63,6 +63,22 @@ userService.createAppoint = async (token, appointmentData) => {
   return response.data;
 };
 
+userService.createAppoint = async (token, appointmentData) => {
+  const options = {
+    method: "POST",
+    url: `${global.BASE_API_URL}/users/createAppoint`,
+    data: appointmentData,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.request(options);
+  return response.data;
+};
+
+
 userService.findAppointment = async (token, appointment) => {
   const options = {
     method: "GET",

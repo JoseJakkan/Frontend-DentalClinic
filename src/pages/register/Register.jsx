@@ -61,7 +61,7 @@ export default function RegisterPage() {
       // setError(null);
       console.log(response);
     } catch (error) {
-      // setError(error.response.data);
+      setError(error.response.data);
       console.log(error.response.data);
     }
   };

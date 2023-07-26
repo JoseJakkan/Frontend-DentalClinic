@@ -9,7 +9,7 @@ import RegisterPage from "./pages/register/Register";
 import AdminPage from "./pages/adminPanel/AdminPanel";
 import DoctorProfile from "./pages/profile/DoctorProfile";
 import AcountPage from "./pages/acount/AcountPatient";
-import NewAppointment from "./pages/profile/NewAppointment";
+import NewAppointment from "./pages/appointments/NewAppointment";
 
 export default function AppRouter() {
   return (
