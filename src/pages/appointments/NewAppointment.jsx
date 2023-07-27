@@ -1,8 +1,11 @@
-import React from "react";
-import doctorServices from "../../_services/doctorServices";
-import { useState } from "react";
-//select
+import React, { useEffect } from "react";
 
+import { useState } from "react";
+import authSlice from "../../features/login/authSlice";
+import { useSelector } from "react-redux";
+
+//select
+import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -12,28 +15,29 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
+import userService from "../../_services/userService";
 
-/* //date function
+//date function
 function DateFieldValue() {
   const [value, setValue] =
-    (React.useState < Dayjs) | (null > dayjs("2022-04-17"));
-} */
+    (React.useState < Dayjs) | (null > dayjs("10-17-2023"));
+}
 //doctros object array for selector
 const doctors = [
   {
-    value: "id.1",
+    value: 1,
     label: "Philip Sherman",
   },
   {
-    value: "id.2",
+    value: 2,
     label: "Laura Palmer",
   },
   {
-    value: "id.3",
+    value: 3,
     label: "Stephen Strange",
   },
   {
-    value: "id.4",
+    value: 4,
     label: "Robert Smith",
   },
 ];
@@ -83,72 +87,88 @@ const hours = [
 ];
 
 export default function NewAppointment() {
-  const [value, setValue] = (useState < Dayjs) | (null > dayjs("2023-08-17"));
+  const [value, setValue] = React.useState(dayjs("10-17-2023"));
+  const [patient, setPatient] = useState();
+  const [user, setUser] = useState({});
+  const token = useSelector((state) => state.auth.token);
+  const [appointment, setAppointment] = useState([]);
+  const userId = useSelector((state) => state.auth.userInfo.id);
 
   const handleSubmit = (e) => {
-    const NewAppointment = {
-      patient: patient.id,
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const newAppointment = {
+      patient: `${userId}`,
       doctor: data.get("doctor"),
-      date: data.get("date"),
+      date: data.get("dates"),
       time: data.get("time"),
     };
-
-    newdate(NewAppointment);
+    console.log(newAppointment);
+    newdate(newAppointment);
   };
   const newdate = async (newAppointment) => {
     try {
-      const response = await doctorServices.doctorAppoinment(newAppointment);
+      const response = await userService.createAppoint(token, newAppointment);
       console.log(response);
     } catch (error) {
-      setError(error.response.data);
       console.log(error.response.data);
     }
   };
 
   return (
     <div>
-      {/* doctors select */}
-      <TextField
-        id="outlined-select-currency"
-        select
-        label="Select"
-        defaultValue="Philip Sherman"
-        name="doctor"
-        helperText="Please select your doctor"
-      >
-        {doctors.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      {/* dates select */}
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={["DateField", "DateField"]}>
-          <DateField
-            label="Controlled field"
-            value={value}
-            name="dates"
-            onChange={(newValue) => setValue(newValue)}
-          />
-        </DemoContainer>
-      </LocalizationProvider>
-      {/* hour select */}
-      <TextField
-        id="outlined-select-currency"
-        select
-        label="Select"
-        defaultValue="09:00"
-        name="Time"
-        helperText="Please select your hour"
-      >
-        {hours.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-      <button onClick={handleSubmit}>Reserve</button>
+      <form onSubmit={handleSubmit} noValidate autoComplete="off">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+          component="form"
+          noValidate
+          autoComplete="off"
+        />
+        {/* doctors select */}
+        <TextField
+          select
+          label="Select"
+          defaultValue="1"
+          name="doctor"
+          helperText="Please select your doctor"
+        >
+          {doctors.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        {/* dates select */}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["DateField", "DateField"]}>
+            <DateField
+              label="Controlled field"
+              value={value}
+              name="dates"
+              onChange={(newValue) => setValue(newValue)}
+            />
+          </DemoContainer>
+        </LocalizationProvider>
+        {/* hour select */}
+        <TextField
+          select
+          label="Select"
+          defaultValue="09:00"
+          name="time"
+          helperText="Please select your hour"
+        >
+          {hours.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <button type="submit">Reserve</button>
+      </form>
     </div>
   );
 }

@@ -78,7 +78,6 @@ userService.createAppoint = async (token, appointmentData) => {
   return response.data;
 };
 
-
 userService.findAppointment = async (token, appointment) => {
   const options = {
     method: "GET",

@@ -56,7 +56,7 @@ function ResponsiveAppBar() {
     { title: "Logout", path: "/", handle: handleLogout },
   ];
 
-  console.log(userRole);
+  // console.log(userRole);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
