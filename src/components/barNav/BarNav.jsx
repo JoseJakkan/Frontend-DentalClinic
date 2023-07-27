@@ -266,7 +266,7 @@ function ResponsiveAppBar() {
               >
                 <MenuItem sx={{ cursor: "default", pointerEvents: "none" }}>
                   <Typography textAlign="center" fontWeight={500}>
-                    Welcome
+                    Welcome, {userName}
                   </Typography>
                 </MenuItem>
                 <Divider />

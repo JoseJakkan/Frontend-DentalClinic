@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import authSlice from "../../features/login/authSlice";
 import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 
 //select
 import Box from "@mui/material/Box";
@@ -98,8 +99,8 @@ export default function NewAppointment() {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const newAppointment = {
-      patient: `${userId}`,
-      doctor: data.get("doctor"),
+      patient_id: `${userId}`,
+      doctor_id: data.get("doctor"),
       date: data.get("dates"),
       time: data.get("time"),
     };
@@ -112,22 +113,21 @@ export default function NewAppointment() {
       console.log(response);
     } catch (error) {
       console.log(error.response.data);
+      {
+        error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        );
+      }
     }
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit} noValidate autoComplete="off">
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-          component="form"
-          noValidate
-          autoComplete="off"
-        />
+        <Box />
         {/* doctors select */}
         <TextField
           select

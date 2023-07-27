@@ -20,7 +20,7 @@ import AlternateEmailIcon from "@mui/icons-material/AlternateEmail";
 import CakeIcon from "@mui/icons-material/Cake";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RestoreIcon from "@mui/icons-material/Restore";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Navigate } from "react-router-dom";
 
 import "../../App.scss";
 
@@ -144,13 +144,8 @@ export default function ProfilePage() {
 
                   <TableCell>{row.time}</TableCell>
                   <TableCell>
-                    <button>
+                    <button Navigate="ModifyAppointment.jsx">
                       <RestoreIcon fontSize="small" />
-                    </button>
-                    <button
-                      onClick={() => handleCancelAppointment(row.appointmentId)}
-                    >
-                      <DeleteIcon fontSize="small" />
                     </button>
                   </TableCell>
                 </TableRow>

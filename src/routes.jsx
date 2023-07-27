@@ -10,6 +10,7 @@ import AdminPage from "./pages/adminPanel/AdminPanel";
 import DoctorProfile from "./pages/profile/DoctorProfile";
 import AcountPage from "./pages/acount/AcountPatient";
 import NewAppointment from "./pages/appointments/NewAppointment";
+import ModifyAppointment from "./pages/appointments/ModifyAppointment";
 
 export default function AppRouter() {
   return (
@@ -23,6 +24,7 @@ export default function AppRouter() {
         <Route path="/adminpanel" element={<AdminPage />} />
         <Route path="/acount" element={<AcountPage />} />
         <Route path="/createAppointment" element={<NewAppointment />} />
+        <Route path="/ModifyAppointment" element={<ModifyAppointment />} />
       </Routes>
     </div>
   );
