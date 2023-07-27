@@ -36,7 +36,7 @@ userService.getProfile = async (token) => {
 userService.saveProfile = async (token, user) => {
   const options = {
     method: "PUT",
-    url: `${global.BASE_API_URL}/user/profile`,
+    url: `${global.BASE_API_URL}/users/modifyProfile`,
     data: user,
     headers: {
       accept: "application/json",

@@ -144,9 +144,9 @@ export default function ProfilePage() {
 
                   <TableCell>{row.time}</TableCell>
                   <TableCell>
-                    <button Navigate="ModifyAppointment.jsx">
+                    <a href="/ModifyAppointment">
                       <RestoreIcon fontSize="small" />
-                    </button>
+                    </a>
                   </TableCell>
                 </TableRow>
               ))}
@@ -201,6 +201,9 @@ export default function ProfilePage() {
             </ListItemIcon>
             <ListItemText primary={user.birthdate} />
           </ListItemButton>
+          <a href="/AcountPatient">
+            <RestoreIcon fontSize="small" />
+          </a>
         </List>
       </div>
       {/* table */}
