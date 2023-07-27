@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 
 import { useState } from "react";
-import authSlice from "../../features/login/authSlice";
+
 import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
+import "./Appointments.scss";
 
 //select
 import Box from "@mui/material/Box";
@@ -125,12 +125,18 @@ export default function NewAppointment() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} noValidate autoComplete="off">
+    <div className="centerDiv">
+      <form
+        className="centerForm"
+        onSubmit={handleSubmit}
+        noValidate
+        autoComplete="off"
+      >
         <Box />
         {/* doctors select */}
         <TextField
           select
+          className="center"
           label="Select"
           defaultValue="1"
           name="doctor"
@@ -144,9 +150,12 @@ export default function NewAppointment() {
         </TextField>
         {/* dates select */}
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DateField", "DateField"]}>
+          <DemoContainer
+            className="center"
+            components={["DateField", "DateField"]}
+          >
             <DateField
-              label="Controlled field"
+              label="please select date"
               value={value}
               name="dates"
               onChange={(newValue) => setValue(newValue)}
@@ -156,7 +165,8 @@ export default function NewAppointment() {
         {/* hour select */}
         <TextField
           select
-          label="Select"
+          className="center"
+          label=""
           defaultValue="09:00"
           name="time"
           helperText="Please select your hour"

@@ -1,0 +1,32 @@
+.adverts{
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    align-items: center;
+    margin-left: 15%;
+    gap: 40px
+
+}
+
+.advertOne{
+    width: 400px;
+    height: 400px;
+    background-image: url("../../../iamges/sumer.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    opacity: 30;
+}
+
+.advertTwo{
+    width: 400px;
+    height: 400px;
+    background-image: url("../../../iamges/discount.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    opacity: 30;
+}
+
+.color{
+    background-color: black;
+    color: aquamarine;
+}

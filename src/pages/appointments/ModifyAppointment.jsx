@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
+import "./Appointments.scss";
 
 //date flied
 import dayjs, { Dayjs } from "dayjs";
@@ -143,12 +144,18 @@ export default function ModifyAppointment() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit} noValidate autoComplete="off">
+    <div className="centerDiv">
+      <form
+        className="centerForm"
+        onSubmit={handleSubmit}
+        noValidate
+        autoComplete="off"
+      >
         <Box />
         {/* doctors select */}
         <TextField
           select
+          className="center"
           label="Select"
           defaultValue="1"
           name="doctor"
@@ -164,6 +171,7 @@ export default function ModifyAppointment() {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DemoContainer components={["DateField", "DateField"]}>
             <DateField
+              className="center"
               label="Controlled field"
               value={value}
               name="dates"
@@ -174,6 +182,7 @@ export default function ModifyAppointment() {
         {/* hour select */}
         <TextField
           select
+          className="center"
           label="Select"
           defaultValue="09:00"
           name="time"
