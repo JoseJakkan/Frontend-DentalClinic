@@ -21,7 +21,7 @@ import userService from "../../_services/userService";
 //date function
 function DateFieldValue() {
   const [value, setValue] =
-    (React.useState < Dayjs) | (null > dayjs("10-17-2023"));
+    (React.useState < Dayjs) | (null > dayjs("09-07-2023"));
 }
 //doctros object array for selector
 const doctors = [
@@ -88,7 +88,7 @@ const hours = [
 ];
 
 export default function NewAppointment() {
-  const [value, setValue] = React.useState(dayjs("10-17-2023"));
+  const [value, setValue] = React.useState(dayjs("08-20-2023"));
   const [patient, setPatient] = useState();
   const [user, setUser] = useState({});
   const token = useSelector((state) => state.auth.token);

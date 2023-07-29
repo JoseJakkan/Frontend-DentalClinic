@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import { modifyAppointment } from "../../features/appointment/updateAppoSlice";
+import { useNavigate } from "react-router-dom";
 
 import Link from "@mui/material/Link";
 
 // @MUI
-import { Container, Typography } from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 import userService from "../../_services/userService";
 
 import List from "@mui/material/List";
@@ -42,6 +46,7 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const token = useSelector((state) => state.auth.token);
   const [dates, setDates] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getProfile();
@@ -60,6 +65,11 @@ export default function ProfilePage() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const changeAppointment = (value) => {
+    modifyAppointment(value);
+    navigate("/ModifyAppointment");
   };
 
   const findAppointment = async () => {
@@ -82,7 +92,8 @@ export default function ProfilePage() {
       doctorName,
       doctorLastname,
       date,
-      time
+      time,
+      id
     ) {
       return {
         patientName,
@@ -91,6 +102,7 @@ export default function ProfilePage() {
         doctorLastname,
         date,
         time,
+        id,
       };
     }
 
@@ -101,10 +113,11 @@ export default function ProfilePage() {
         appointment.doctor.name,
         appointment.doctor.lastname,
         appointment.date,
-        appointment.time
+        appointment.time,
+        appointment.id
       )
     );
-    console.log(dates);
+    console.log("A", dates);
 
     return (
       <>
@@ -144,9 +157,10 @@ export default function ProfilePage() {
 
                   <TableCell>{row.time}</TableCell>
                   <TableCell>
-                    <a href="/ModifyAppointment">
-                      <RestoreIcon fontSize="small" />
-                    </a>
+                    <Button
+                      startIcon={<RestoreIcon />}
+                      onClick={() => changeAppointment(row)}
+                    />
                   </TableCell>
                 </TableRow>
               ))}

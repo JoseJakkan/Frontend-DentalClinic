@@ -2,6 +2,9 @@ import React from "react";
 import userService from "../../_services/userService";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import format from "date-fns/format";
+import Alert from "@mui/material/Alert";
+import { AlertTitle } from "@mui/material";
 
 //select
 import Box from "@mui/material/Box";
@@ -19,7 +22,7 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 //date function
 function DateFieldValue() {
   const [value, setValue] =
-    (React.useState < Dayjs) | (null > dayjs("10-17-2023"));
+    (React.useState < Dayjs) | (null > dayjs("11-09-2023"));
 }
 //doctros object array for selector
 const doctors = [
@@ -85,66 +88,72 @@ const hours = [
   },
 ];
 
-const initialFormValues = {
-  doctor_id: "",
-  date: "",
-  time: "",
-};
-
 export default function ModifyAppointment() {
   // hooks
   const [value, setValue] = React.useState(dayjs("10-17-2023"));
   const [user, setUser] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [success, setSuccess] = useState(null);
+
+  const [patient, setPatient] = useState();
+
+  const appointment = useSelector((state) => state.appointment.appointment);
 
   // glogal state hooks
   const token = useSelector((state) => state.auth.token);
-
-  useEffect(() => {
-    findAppointment();
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues((oldState) => {
-      return {
-        ...oldState,
-        [name]: value,
-      };
-    });
-  };
-
-  const handleSubmit = (event) => {
+  console.log(appointment);
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      doctor_id: data.get("doctor"),
+    let date = data.get("date");
+    if (date == "") {
+      date = appointment.date;
+      console.log("entra");
+    }
+
+    const updatedAppointment = {
+      appointment_id: appointment.id,
+
       date: data.get("date"),
       time: data.get("time"),
-    });
+    };
+
+    try {
+      const response = await userService.modifyAppointment(
+        token,
+        updatedAppointment
+      );
+      setSuccess("Updated successfully");
+      console.log(response);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+
+    console.log(updatedAppointment);
+    //updateDate(updatedAppointment);
   };
 
-  const findAppointment = async () => {
-    setIsLoading(true);
+  /* const updateDate = async (updatedAppointment) => {
     try {
-      const data = await userService.findAppointment(token);
-      setUser(data.results);
-      setFormValues({
-        doctor_id: data.results.user_name,
-        date: data.results.date,
-        time: data.results.time,
-      });
-      console.log(data);
+      const response = await userService.modifyAppointment(
+        token,
+        updatedAppointment
+      );
+      console.log(response);
     } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+      console.log(error.response.data);
+      {
+      }
     }
-  };
+  }; */
 
   return (
     <div className="centerDiv">
+      {success && (
+        <Alert severity="success">
+          <AlertTitle>success</AlertTitle>
+          {success}
+        </Alert>
+      )}
       <form
         className="centerForm"
         onSubmit={handleSubmit}
@@ -152,12 +161,12 @@ export default function ModifyAppointment() {
         autoComplete="off"
       >
         <Box />
-        {/* doctors select */}
+        {/* doctors select 
         <TextField
           select
           className="center"
           label="Select"
-          defaultValue="1"
+          defaultValue=""
           name="doctor"
           helperText="Please select your doctor"
         >
@@ -166,19 +175,33 @@ export default function ModifyAppointment() {
               {option.label}
             </MenuItem>
           ))}
-        </TextField>
+        </TextField> */}
+
         {/* dates select */}
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DateField", "DateField"]}>
+        <TextField
+          id="date_appointment"
+          label="Select your day"
+          name="date"
+          defaultValue={format(new Date(appointment.date), "yyyy/MM/dd")}
+          //defaultValue={format(new Date(appointment.fecha), "yyyy/MM/dd")}
+          fullWidth
+          InputProps={{
+            readOnly: false,
+          }}
+        />
+        {/*  <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer
+            className="center"
+            components={["DateField", "DateField"]}
+          >
             <DateField
-              className="center"
-              label="Controlled field"
+              label="please select date"
               value={value}
               name="dates"
               onChange={(newValue) => setValue(newValue)}
             />
           </DemoContainer>
-        </LocalizationProvider>
+        </LocalizationProvider> */}
         {/* hour select */}
         <TextField
           select

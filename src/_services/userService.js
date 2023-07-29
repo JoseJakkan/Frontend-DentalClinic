@@ -63,10 +63,10 @@ userService.createAppoint = async (token, appointmentData) => {
   return response.data;
 };
 
-userService.createAppoint = async (token, appointmentData) => {
+userService.modifyAppointment = async (token, appointmentData) => {
   const options = {
-    method: "POST",
-    url: `${global.BASE_API_URL}/users/createAppoint`,
+    method: "PUT",
+    url: `${global.BASE_API_URL}/users/modifyAppointment`,
     data: appointmentData,
     headers: {
       accept: "application/json",
