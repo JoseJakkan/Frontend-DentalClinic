@@ -5,8 +5,11 @@ import { useSelector } from "react-redux";
 import { Container, Typography } from "@mui/material";
 import userService from "../../_services/userService";
 import doctorServices from "../../_services/doctorServices";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
 
 import List from "@mui/material/List";
+import "./ProfilePage.scss";
 
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -38,6 +41,8 @@ export default function DoctorProfile() {
   const [isLoading, setIsLoading] = useState(true);
   const token = useSelector((state) => state.auth.token);
   const [dates, setDates] = useState([]);
+  const userid = useSelector((state) => state.auth.userInfo.id);
+  const avatar = `../../../iamges/portrait${userid}.jpg`;
 
   useEffect(() => {
     getProfile();
@@ -188,6 +193,9 @@ export default function DoctorProfile() {
             <ListItemText primary={user.birthdate} />
           </ListItemButton>
         </List>
+        <Stack direction="row" spacing={2}>
+          <Avatar sx={{ width: 300, height: 300 }} alt="avatar" src={avatar} />
+        </Stack>
       </div>
       {/* table */}
       <ViewAppo appointments={dates} />

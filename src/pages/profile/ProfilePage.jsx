@@ -6,6 +6,7 @@ import { modifyAppointment } from "../../features/appointment/updateAppoSlice";
 import { useNavigate } from "react-router-dom";
 
 import Link from "@mui/material/Link";
+import "./ProfilePage.scss";
 
 // @MUI
 import { Container, Typography, Button } from "@mui/material";
@@ -47,7 +48,10 @@ export default function ProfilePage() {
   const token = useSelector((state) => state.auth.token);
   const [dates, setDates] = useState([]);
   const navigate = useNavigate();
+  const userid = useSelector((state) => state.auth.userInfo.id);
+  const avatar = `../../../iamges/portrait${userid}.jpg`;
 
+  console.log("BB", userid);
   useEffect(() => {
     getProfile();
   }, []);
@@ -219,6 +223,9 @@ export default function ProfilePage() {
             <RestoreIcon fontSize="small" />
           </a>
         </List>
+        <Stack direction="row" spacing={2}>
+          <Avatar sx={{ width: 300, height: 300 }} alt="avatar" src={avatar} />
+        </Stack>
       </div>
       {/* table */}
       <ViewAppo appointments={dates} />
