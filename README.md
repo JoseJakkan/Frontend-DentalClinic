@@ -18,30 +18,24 @@ The project is the Frontend of the past Backend Project of dental clinic (https:
 ## Deploy
 
 <div align:"center">
-<a href="">Project</a>
+<a href="https://github.com/JoseJakkan/Frontend-DentalClinic.git">Project</a>
 </a>
 </div>
 
-## :wrench:Tecnologias Utilizadas
+## :wrench:Stack
 
 <ul>
 <li>HTML5</li>
 <li>CSS3</li>
 <li>Sass</li>
 <li>JavaScript</li>
+<li>React</li>
+<li>Redux</li>
+<li>MUI</li>
 </ul>
 
-## :koala:Desarolladores del Proyecto
+## :koala:Proyect Developers
 
 Jose Antonio Lopez
-Estudiante de GeeksHubs Academy https://geekshubsacademy.com/
+student of GeeksHubs Academy https://geekshubsacademy.com/
 :e-mail: lopez.joseantonio82@gmail.com
-
-## :construction:Futuras Mejoras
-
-Se ha intentado crear una funcion que compruebe los resultados automaticamente e independientemente del tamaño del tablero para poder crear partidas de tableros 4x4, 5x5, 6x6 o lo que se quisiera, pero no se logro terminar.
-Esta inconclusa y comentada al final del codigo para retomar el proyecto en un futuro.
-
-## :blue_book: Recursos utilizdos y documentacion
-
-<li><a target="_blank" href="https://www.w3schools.com/html/">3Wschools</a></li>
