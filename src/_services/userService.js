@@ -93,6 +93,21 @@ userService.findAppointment = async (token, appointment) => {
   return response.data;
 };
 
+userService.findOneAppointment = async (token, appoId) => {
+  const options = {
+    method: "GET",
+    url: `${global.BASE_API_URL}/users/findOneAppointment`,
+    data: appoId,
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.request(options);
+  return response.data;
+};
+
 userService.cancelAppoint = async (token, appointmentId) => {
   const options = {
     method: "DELETE",

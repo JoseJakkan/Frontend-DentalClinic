@@ -8,6 +8,13 @@
 
 }
 
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .advertOne{
     width: 400px;
     height: 400px;
@@ -28,5 +35,16 @@
 
 .color{
     background-color: black;
-    color: rgb(247, 247, 247);
+    color: #f7f7f7;
+}
+
+
+
+.border{
+    border: 1px solid black;
+}
+
+.titles{
+    color:blue;
+    font-size: 5s0px;
 }

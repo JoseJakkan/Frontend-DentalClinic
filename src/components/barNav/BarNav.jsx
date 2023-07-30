@@ -41,8 +41,9 @@ function ResponsiveAppBar() {
 
   const pages = [
     { title: "Home", path: "/" },
-    { title: "Services", path: "/" },
-    { title: "About", path: "/" },
+    { title: "Services", path: "/Services" },
+    { title: "About", path: "/About" },
+    { title: "Search", path: "/FindOneAppointment" },
   ];
 
   const profilePath = {
@@ -116,6 +117,7 @@ function ResponsiveAppBar() {
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}

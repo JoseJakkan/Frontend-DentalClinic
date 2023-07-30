@@ -11,6 +11,9 @@ import DoctorProfile from "./pages/profile/DoctorProfile";
 import AcountPatient from "./pages/acount/AcountPatient";
 import NewAppointment from "./pages/appointments/NewAppointment";
 import ModifyAppointment from "./pages/appointments/ModifyAppointment";
+import FindOneAppointment from "./pages/appointments/FindOneAppointment";
+import About from "./pages/main/About";
+import Services from "./pages/main/Services";
 
 export default function AppRouter() {
   return (
@@ -25,6 +28,9 @@ export default function AppRouter() {
         <Route path="/AcountPatient" element={<AcountPatient />} />
         <Route path="/createAppointment" element={<NewAppointment />} />
         <Route path="/ModifyAppointment" element={<ModifyAppointment />} />
+        <Route path="/FindOneAppointment" element={<FindOneAppointment />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Services" element={<Services />} />
       </Routes>
     </div>
   );
