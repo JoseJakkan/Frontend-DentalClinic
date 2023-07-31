@@ -16,10 +16,10 @@ import Grid from "@mui/material/Grid";
 export default function Services() {
   return (
     <div>
-      <h1>Services</h1>
+      
       <div className="center">
         <h1 className="titles">About Us</h1>
-        <h2 className="titles">The Doctors</h2>
+        <h2 className="titles">Services</h2>
         <Grid container spacing={24}>
           <Grid item md={3}>
             <Card className="border" sx={{ maxWidth: 345 }}>

@@ -6,6 +6,7 @@
 
 <li>Project Description</li>
 <li>Deploy</li>
+<li>Views</li>
 <li>Stack</li>
 <li>Proyect Developers</li>
 
@@ -15,6 +16,8 @@
 
 The project is the Frontend of the past Backend Project of dental clinic (https://github.com/JoseJakkan/DentalClinic.git). The project includes the following features like Register, Login, a profile for Patients and other for Doctors. The possibility to take an appointment with the clonic, modify thar appointment and search the appointments for the patients and the doctors. Finally, the project has a seccion fot the Admin.
 
+
+
 ## Deploy
 
 <div align:"center">
@@ -22,6 +25,17 @@ The project is the Frontend of the past Backend Project of dental clinic (https:
 </a>
 </div>
 
+## View
+![Home Page](../iamges/vistas/Home%20Page.png)
+![Register](../iamges/vistas/Register.png)
+![Login](../iamges/vistas/Login.png)
+![User Panel](../iamges/vistas/Patient%20Profile.png)
+![Doctor Panel](../iamges/vistas/Doctor%20Panel.png)
+![Admin Panel](../iamges/vistas/Admin%20Pannel.png)
+![Reserve Appointment](../iamges/vistas/Create%20Appointment.png)
+![Update Appointment](../iamges/vistas/Modifiy%20Appointment.png)
+![About](../iamges/vistas/About%20us.png)
+![Services](../iamges/vistas/Services.png)
 ## :wrench:Stack
 
 <ul>

@@ -44,6 +44,28 @@ const doctors = [
   },
 ];
 
+
+export default function ModifyAppointment() {
+  // hooks
+  const [value, setValue] = React.useState(dayjs("10-17-2023"));
+  const [user, setUser] = useState({});
+  const [success, setSuccess] = useState(null);
+
+  const [patient, setPatient] = useState();
+
+    const appointment = useSelector((state) => state.appointment.appointment);
+
+    const totaltime = appointment.time
+    const timeSplit = totaltime.split(":");
+
+    const timeHour = timeSplit[0];
+    const timeMinutes = timeSplit[1];
+
+    const realHour =` ${timeHour}:${timeMinutes}`; 
+
+    console.log("TTT", realHour);
+
+    
 //Hour object array for selector
 const hours = [
   {
@@ -67,6 +89,14 @@ const hours = [
     label: "13:00",
   },
   {
+    value: "14:00",
+    label: "14:00",
+  },
+  {
+    value: "15:00",
+    label: "15:00",
+  },
+  {
     value: "16:00",
     label: "16:00",
   },
@@ -86,17 +116,11 @@ const hours = [
     value: "20:00",
     label: "20:00",
   },
+  {
+    value: realHour,
+    label: realHour,
+  },
 ];
-
-export default function ModifyAppointment() {
-  // hooks
-  const [value, setValue] = React.useState(dayjs("10-17-2023"));
-  const [user, setUser] = useState({});
-  const [success, setSuccess] = useState(null);
-
-  const [patient, setPatient] = useState();
-
-  const appointment = useSelector((state) => state.appointment.appointment);
 
   // glogal state hooks
   const token = useSelector((state) => state.auth.token);
@@ -109,13 +133,14 @@ export default function ModifyAppointment() {
       date = appointment.date;
       console.log("entra");
     }
-
+console.log("ggg", appointment);
     const updatedAppointment = {
       appointment_id: appointment.id,
 
       date: data.get("date"),
       time: data.get("time"),
     };
+    
 
     try {
       const response = await userService.modifyAppointment(
@@ -129,22 +154,10 @@ export default function ModifyAppointment() {
     }
 
     console.log(updatedAppointment);
-    //updateDate(updatedAppointment);
+    
   };
 
-  /* const updateDate = async (updatedAppointment) => {
-    try {
-      const response = await userService.modifyAppointment(
-        token,
-        updatedAppointment
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error.response.data);
-      {
-      }
-    }
-  }; */
+  
 
   return (
     <div className="centerDiv">
@@ -161,21 +174,7 @@ export default function ModifyAppointment() {
         autoComplete="off"
       >
         <Box />
-        {/* doctors select 
-        <TextField
-          select
-          className="center"
-          label="Select"
-          defaultValue=""
-          name="doctor"
-          helperText="Please select your doctor"
-        >
-          {doctors.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField> */}
+     
 
         {/* dates select */}
         <TextField
@@ -183,31 +182,18 @@ export default function ModifyAppointment() {
           label="Select your day"
           name="date"
           defaultValue={format(new Date(appointment.date), "yyyy/MM/dd")}
-          //defaultValue={format(new Date(appointment.fecha), "yyyy/MM/dd")}
+          
           fullWidth
           InputProps={{
             readOnly: false,
           }}
         />
-        {/*  <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer
-            className="center"
-            components={["DateField", "DateField"]}
-          >
-            <DateField
-              label="please select date"
-              value={value}
-              name="dates"
-              onChange={(newValue) => setValue(newValue)}
-            />
-          </DemoContainer>
-        </LocalizationProvider> */}
-        {/* hour select */}
+        
         <TextField
           select
           className="center"
           label="Select"
-          defaultValue="09:00"
+          defaultValue={realHour}
           name="time"
           helperText="Please select your hour"
         >
