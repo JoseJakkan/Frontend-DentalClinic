@@ -26,16 +26,16 @@ The project is the Frontend of the past Backend Project of dental clinic (https:
 </div>
 
 ## View
-![Home Page](../iamges/vistas/Home%20Page.png)
-![Register](../iamges/vistas/Register.png)
-![Login](../iamges/vistas/Login.png)
-![User Panel](../iamges/vistas/Patient%20Profile.png)
-![Doctor Panel](../iamges/vistas/Doctor%20Panel.png)
-![Admin Panel](../iamges/vistas/Admin%20Pannel.png)
-![Reserve Appointment](../iamges/vistas/Create%20Appointment.png)
-![Update Appointment](../iamges/vistas/Modifiy%20Appointment.png)
-![About](../iamges/vistas/About%20us.png)
-![Services](../iamges/vistas/Services.png)
+![Home Page](Home%20Page.png)
+![Register](Register.png)
+![Login](Login.png)
+![User Panel](Patient%20Profile.png)
+![Doctor Panel](Doctor%20Panel.png)
+![Admin Panel](Admin%20Pannel.png)
+![Reserve Appointment](Create%20Appointment.png)
+![Update Appointment](Modifiy%20Appointment.png)
+![About](About%20us.png)
+![Services](Services.png)
 ## :wrench:Stack
 
 <ul>

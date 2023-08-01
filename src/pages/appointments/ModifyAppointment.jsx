@@ -25,24 +25,7 @@ function DateFieldValue() {
     (React.useState < Dayjs) | (null > dayjs("11-09-2023"));
 }
 //doctros object array for selector
-const doctors = [
-  {
-    value: 1,
-    label: "Philip Sherman",
-  },
-  {
-    value: 2,
-    label: "Laura Palmer",
-  },
-  {
-    value: 3,
-    label: "Stephen Strange",
-  },
-  {
-    value: 4,
-    label: "Robert Smith",
-  },
-];
+
 
 
 export default function ModifyAppointment() {
@@ -65,6 +48,27 @@ export default function ModifyAppointment() {
 
     console.log("TTT", realHour);
 
+    const doctor1 = appointment.doctror_id.id;
+console.log(doctor1);
+
+    const doctors = [
+      {
+        value: doctor1,
+        label: "Philip Sherman",
+      },
+      {
+        value: 2,
+        label: "Laura Palmer",
+      },
+      {
+        value: 3,
+        label: "Stephen Strange",
+      },
+      {
+        value: 4,
+        label: "Robert Smith",
+      },
+    ];
     
 //Hour object array for selector
 const hours = [
@@ -174,7 +178,20 @@ console.log("ggg", appointment);
         autoComplete="off"
       >
         <Box />
-     
+        <TextField
+          select
+          className="center"
+          label="Select"
+          defaultValue={realHour}
+          name="time"
+          helperText="Please select your hour"
+        >
+          {doctors.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
 
         {/* dates select */}
         <TextField
