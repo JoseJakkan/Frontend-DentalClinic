@@ -26,15 +26,25 @@ The project is the Frontend of the past Backend Project of dental clinic (https:
 </div>
 
 ## View
+Home Page
 ![Home Page](Home%20Page.png)
+Register
 ![Register](Register.png)
+Login
 ![Login](Login.png)
+User Pannel
 ![User Panel](Patient%20Profile.png)
+Doctro Panel
 ![Doctor Panel](Doctor%20Panel.png)
+Admin Panel
 ![Admin Panel](Admin%20Pannel.png)
+Reserve Appointments
 ![Reserve Appointment](Create%20Appointment.png)
+Update Appointments
 ![Update Appointment](Modifiy%20Appointment.png)
+About
 ![About](About%20us.png)
+Service
 ![Services](Services.png)
 ## :wrench:Stack
 
