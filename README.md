@@ -14,7 +14,9 @@
 
 ## :blue_book:Project Description
 
-The project is the Frontend of the past Backend Project of dental clinic (https://github.com/JoseJakkan/DentalClinic.git). The project includes the following features like Register, Login, a profile for Patients and other for Doctors. The possibility to take an appointment with the clonic, modify thar appointment and search the appointments for the patients and the doctors. Finally, the project has a seccion fot the Admin.
+The project is the Frontend of the past Backend Project of dental clinic. The project includes the following features like Register, Login, a profile for Patients and other for Doctors. The possibility to take an appointment with the clonic, modify thar appointment and search the appointments for the patients and the doctors. Finally, the project has a seccion fot the Admin.
+
+Link yo the backend project https://github.com/JoseJakkan/DentalClinic.git
 
 
 

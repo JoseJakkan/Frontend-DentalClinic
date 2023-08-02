@@ -24,7 +24,7 @@ function DateFieldValue() {
   const [value, setValue] =
     (React.useState < Dayjs) | (null > dayjs("11-09-2023"));
 }
-//doctros object array for selector
+
 
 
 
@@ -35,9 +35,12 @@ export default function ModifyAppointment() {
   const [success, setSuccess] = useState(null);
 
   const [patient, setPatient] = useState();
+  const docInfo = useSelector((state) => state.docInfo);
+  const [error, setError] = useState(null);
 
     const appointment = useSelector((state) => state.appointment.appointment);
-
+    //const docId = useSelector((state) => state.doctor.docInfo.user_id);
+    //const docName = useSelector((state) => state.doctor.docInfo.user_name);
     const totaltime = appointment.time
     const timeSplit = totaltime.split(":");
 
@@ -46,29 +49,27 @@ export default function ModifyAppointment() {
 
     const realHour =` ${timeHour}:${timeMinutes}`; 
 
-    console.log("TTT", realHour);
-
-    const doctor1 = appointment.doctror_id.id;
-console.log(doctor1);
 
     const doctors = [
       {
-        value: doctor1,
-        label: "Philip Sherman",
+        value: "",
+        label:"",
       },
       {
-        value: 2,
-        label: "Laura Palmer",
+        value:"",
+        label: "",
       },
       {
-        value: 3,
-        label: "Stephen Strange",
+        value: "",
+        label: "",
       },
       {
-        value: 4,
-        label: "Robert Smith",
+        value: "",
+        label: "",
       },
     ];
+
+    console.log(doctors);
     
 //Hour object array for selector
 const hours = [
@@ -135,7 +136,7 @@ const hours = [
     let date = data.get("date");
     if (date == "") {
       date = appointment.date;
-      console.log("entra");
+      
     }
 console.log("ggg", appointment);
     const updatedAppointment = {
@@ -152,7 +153,7 @@ console.log("ggg", appointment);
         updatedAppointment
       );
       setSuccess("Updated successfully");
-      console.log(response);
+      
     } catch (error) {
       console.log(error.response.data);
     }

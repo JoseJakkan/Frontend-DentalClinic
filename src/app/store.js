@@ -7,6 +7,7 @@ import storage from "redux-persist/lib/storage";
 // reducers
 import authReducer from "../features/login/authSlice";
 import appointmentReducer from "../features/appointment/appoSlice";
+import doctorReducer from "../features/doctors/doctorSlice";
 
 // ----------------------------------------------------------------------
 
@@ -26,11 +27,17 @@ const appoPersistConfig = {
   storage: sessionStorage,
 };
 
+const docPersistConfig = {
+  key: "doctor",
+  storage: sessionStorage,
+};
+
 // ----------------------------------------------------------------------
 
 const rootReducer = combineReducers({
   auth: persistReducer(authPersistConfig, authReducer),
   appointment: persistReducer(appoPersistConfig, appointmentReducer),
+  doctor: persistReducer(docPersistConfig, doctorReducer),
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);
