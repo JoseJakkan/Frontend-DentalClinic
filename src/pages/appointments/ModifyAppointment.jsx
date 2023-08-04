@@ -25,9 +25,6 @@ function DateFieldValue() {
     (React.useState < Dayjs) | (null > dayjs("11-09-2023"));
 }
 
-
-
-
 export default function ModifyAppointment() {
   // hooks
   const [value, setValue] = React.useState(dayjs("10-17-2023"));
@@ -38,94 +35,93 @@ export default function ModifyAppointment() {
   const docInfo = useSelector((state) => state.docInfo);
   const [error, setError] = useState(null);
 
-    const appointment = useSelector((state) => state.appointment.appointment);
-    //const docId = useSelector((state) => state.doctor.docInfo.user_id);
-    //const docName = useSelector((state) => state.doctor.docInfo.user_name);
-    const totaltime = appointment.time
-    const timeSplit = totaltime.split(":");
+  const appointment = useSelector((state) => state.appointment.appointment);
+  //const docId = useSelector((state) => state.doctor.docInfo.user_id);
+  //const docName = useSelector((state) => state.doctor.docInfo.user_name);
+  const totaltime = appointment.time;
+  const timeSplit = totaltime.split(":");
 
-    const timeHour = timeSplit[0];
-    const timeMinutes = timeSplit[1];
+  const timeHour = timeSplit[0];
+  const timeMinutes = timeSplit[1];
 
-    const realHour =` ${timeHour}:${timeMinutes}`; 
+  const realHour = ` ${timeHour}:${timeMinutes}`;
 
+  const doctors = [
+    {
+      value: "1",
+      label: "Philip Sherman",
+    },
+    {
+      value: "2",
+      label: "Laura Palmer",
+    },
+    {
+      value: "3",
+      label: "Stephen Strange",
+    },
+    {
+      value: "4",
+      label: "Robert Smith",
+    },
+  ];
 
-    const doctors = [
-      {
-        value: "",
-        label:"",
-      },
-      {
-        value:"",
-        label: "",
-      },
-      {
-        value: "",
-        label: "",
-      },
-      {
-        value: "",
-        label: "",
-      },
-    ];
+  console.log(doctors);
 
-    console.log(doctors);
-    
-//Hour object array for selector
-const hours = [
-  {
-    value: "09:00",
-    label: "09:00",
-  },
-  {
-    value: "10:00",
-    label: "10:00",
-  },
-  {
-    value: "11:00",
-    label: "11:00",
-  },
-  {
-    value: "12:00",
-    label: "12:00",
-  },
-  {
-    value: "13:00",
-    label: "13:00",
-  },
-  {
-    value: "14:00",
-    label: "14:00",
-  },
-  {
-    value: "15:00",
-    label: "15:00",
-  },
-  {
-    value: "16:00",
-    label: "16:00",
-  },
-  {
-    value: "17:00",
-    label: "17:00",
-  },
-  {
-    value: "18:00",
-    label: "18:00",
-  },
-  {
-    value: "19:00",
-    label: "19:00",
-  },
-  {
-    value: "20:00",
-    label: "20:00",
-  },
-  {
-    value: realHour,
-    label: realHour,
-  },
-];
+  //Hour object array for selector
+  const hours = [
+    {
+      value: "09:00",
+      label: "09:00",
+    },
+    {
+      value: "10:00",
+      label: "10:00",
+    },
+    {
+      value: "11:00",
+      label: "11:00",
+    },
+    {
+      value: "12:00",
+      label: "12:00",
+    },
+    {
+      value: "13:00",
+      label: "13:00",
+    },
+    {
+      value: "14:00",
+      label: "14:00",
+    },
+    {
+      value: "15:00",
+      label: "15:00",
+    },
+    {
+      value: "16:00",
+      label: "16:00",
+    },
+    {
+      value: "17:00",
+      label: "17:00",
+    },
+    {
+      value: "18:00",
+      label: "18:00",
+    },
+    {
+      value: "19:00",
+      label: "19:00",
+    },
+    {
+      value: "20:00",
+      label: "20:00",
+    },
+    {
+      value: realHour,
+      label: realHour,
+    },
+  ];
 
   // glogal state hooks
   const token = useSelector((state) => state.auth.token);
@@ -136,16 +132,14 @@ const hours = [
     let date = data.get("date");
     if (date == "") {
       date = appointment.date;
-      
     }
-console.log("ggg", appointment);
+    console.log("ggg", appointment);
     const updatedAppointment = {
       appointment_id: appointment.id,
 
       date: data.get("date"),
       time: data.get("time"),
     };
-    
 
     try {
       const response = await userService.modifyAppointment(
@@ -153,16 +147,12 @@ console.log("ggg", appointment);
         updatedAppointment
       );
       setSuccess("Updated successfully");
-      
     } catch (error) {
       console.log(error.response.data);
     }
 
     console.log(updatedAppointment);
-    
   };
-
-  
 
   return (
     <div className="centerDiv">
@@ -183,9 +173,9 @@ console.log("ggg", appointment);
           select
           className="center"
           label="Select"
-          defaultValue={realHour}
+          defaultValue="1"
           name="time"
-          helperText="Please select your hour"
+          helperText="Please select your doctor"
         >
           {doctors.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -200,18 +190,17 @@ console.log("ggg", appointment);
           label="Select your day"
           name="date"
           defaultValue={format(new Date(appointment.date), "yyyy/MM/dd")}
-          
           fullWidth
           InputProps={{
             readOnly: false,
           }}
         />
-        
+
         <TextField
           select
           className="center"
           label="Select"
-          defaultValue={realHour}
+          defaultValue="09:00"
           name="time"
           helperText="Please select your hour"
         >
