@@ -63,5 +63,5 @@ Service
 ## :koala:Proyect Developers
 
 Jose Antonio Lopez
-student of GeeksHubs Academy https://geekshubsacademy.com/
+
 :e-mail: lopez.joseantonio82@gmail.com
