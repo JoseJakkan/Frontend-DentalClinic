@@ -23,7 +23,7 @@ Link yo the backend project https://github.com/JoseJakkan/DentalClinic.git
 ## Deploy
 
 <div align:"center">
-<a href="https://github.com/JoseJakkan/Frontend-DentalClinic.git">Project</a>
+<a href="https://josejakkan.github.io/Frontend-DentalClinic.git">Project</a>
 </a>
 </div>
 
